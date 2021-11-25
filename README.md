@@ -50,7 +50,7 @@ No IntelliJ:
 - Abra a classe `ReceitasApplication.java`
 - Clique com o botão direito e selecione `Run As | Debug As > Java Application` (Dependendo da IDE pode ser um pouco diferente o nome)
 - Acesse a sua aplicação no navegador através do endereço `http://localhost:8080` (A porta padrão é a 8080, caso você tenha configurado outra porta considere ela na url)
-- Quando quiser para a aplicação basta clicar em `Terminate` (quadrado vermelho) que aparece na aba `Console` (Dependendo da IDE pode ser um pouco diferente o nome/localização)
+- Quando quiser parar a aplicação basta clicar em `Terminate` (quadrado vermelho) que aparece na aba `Console` (Dependendo da IDE pode ser um pouco diferente o nome/localização)
 
 ## Observações sobre o projeto
 
@@ -91,7 +91,7 @@ formulário vazio.
 
 Em caso de erro deve exibir o formulário marcando os erros nos campos.
 
-Os dados que deve ser salvos relacionados à receita são:
+Os dados que devem ser salvos relacionados à receita são:
 - Nome.
 - Link da foto.
 - Tempo de preparo (em minutos).
@@ -102,7 +102,7 @@ Os dados que deve ser salvos relacionados à receita são:
 - Data/Hora de criação.
 - Cada ingrediente tem um nome, uma quantidade e uma medida (GRAMAS, MILILITRO ou UNIDADE)
 
-Os dados que deve ser validados ao tentar salvar a receita são:
+Os dados que devem ser validados ao tentar salvar a receita são:
 - Nome é obrigatório.
 - Tempo de preparo é obrigatório. Deve ser no mínimo 10 e no máximo 360 minutos.
 - Rendimento é obrigatório. Deve ser no mínimo 1 e no máximo 50 porções.
