@@ -15,4 +15,12 @@ public class ReceitaService {
     public List<Receita> listar() {
         return repository.findAll();
     }
+
+    public Receita salvar(Receita receita) {
+        return repository.save(receita);
+    }
+
+    public Receita buscarPorId(Long id) {
+        return repository.findById(id).get();
+    }
 }
