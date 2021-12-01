@@ -10,7 +10,7 @@ function adicionarIngrediente() {
     let medida = $("#ingredientesMedida").val();
     let deleteButton = "<td><button type='button' class='btn btn-sm btn-danger' onclick='removerIngrediente(this)'><span aria-hidden='true'>&times;</span></button></td>"
 
-    if(nome && quantidade && medida) {
+    if(isValid(nome, quantidade, medida)) {
         let linha = "<tr>" +
             getCelula(nome, 'nome') +
             getCelula(quantidade, 'quantidade') +
@@ -21,7 +21,14 @@ function adicionarIngrediente() {
         $("#tabelaIngredientes").append(linha);
         $('#ingredienteForm').trigger("reset");
         $('#modalIngrediente').modal('hide');
+    } else {
+        alert("Preencha todos os campos!");
     }
+}
+
+
+function isValid(nome, quantidade, medida) {
+    return nome != "" && nome != null && quantidade >= 1 && quantidade <= 1000 && medida != "Selecione um tipo de medida...";
 }
 
 function removerIngrediente(el) {

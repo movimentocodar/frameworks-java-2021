@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,7 +23,18 @@ public class Receita {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Ingredientes> ingredientes;
     private LocalDate dataPublicacao = LocalDate.now();
+    @Column(length = 1000)
     private String modoPreparo;
     private Boolean revisar;
+
+    public Receita (String nome, String linkFoto, Integer tempoPreparo, Integer rendimento, List<Ingredientes> ingredientes, String modoPreparo, Boolean revisar) {
+        setNome(nome);
+        setLinkFoto(linkFoto);
+        setTempoPreparo(tempoPreparo);
+        setRendimento(rendimento);
+        setIngredientes(ingredientes);
+        setModoPreparo(modoPreparo);
+        setRevisar(revisar);
+    }
 
 }
