@@ -22,7 +22,7 @@ public class ReceitaController {
 
     @GetMapping("lista")
     public String lista(Model model) {
-        model.addAttribute("receitas", receitaService.listar());
+        model.addAttribute("receitas", receitaService.listarSortData());
         return "lista-receitas";
     }
 

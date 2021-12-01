@@ -12,8 +12,8 @@ public class ReceitaService {
     @Autowired
     private ReceitaRepository repository;
 
-    public List<Receita> listar() {
-        return repository.findAll();
+    public List<Receita> listarSortData() {
+        return repository.findAllByOrderByDataPublicacaoDesc();
     }
 
     public Receita salvar(Receita receita) {
