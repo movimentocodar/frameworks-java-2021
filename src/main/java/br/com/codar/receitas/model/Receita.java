@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class Receita {
     private Integer rendimento;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Ingredientes> ingredientes;
-    private LocalDate dataPublicacao = LocalDate.now();
+    private LocalDateTime dataPublicacao = LocalDateTime.now();
     @Column(length = 1000)
     private String modoPreparo;
     private Boolean revisar;

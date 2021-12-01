@@ -20,7 +20,7 @@
         <h2>Receitas</h2>
         <div class="row">
             <a th:href="@{/receitas/detalhe/{id}(id=${receita.id})}" class="card mb-3 receita-card"
-               th:each="receita : ${receitas}">
+               th:each="receita : ${receitas}" th:if="${receita.revisar != true}">
                 <div class="row no-gutters">
                     <div class="col-md-4">
                         <img th:src="${receita.linkFoto}" class="card-img img-fluid imagem-receita"
