@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -32,12 +33,13 @@ public class ReceitaController {
     }
 
     @PostMapping
-    public String salvar(@Valid ReceitaForm receitaForm, BindingResult result) {
+    public String salvar(@Valid ReceitaForm receitaForm, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) {
             return "cadastro-receita";
         }
         Receita receitaSalva = receitaService.salvar(receitaForm.converter());
-        return "redirect:/receitas/detalhe/" + receitaSalva.getId();
+        attributes.addFlashAttribute("sucesso", "Receita salva com sucesso!");
+        return "redirect:/receitas/nova";
     }
 
     @GetMapping("detalhe/{id}")
