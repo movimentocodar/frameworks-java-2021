@@ -17,7 +17,6 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("receitas")
 public class ReceitaController {
-
     @Autowired
     private ReceitaService receitaService;
 
