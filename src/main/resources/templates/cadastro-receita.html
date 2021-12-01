@@ -8,15 +8,11 @@
 </head>
 <body>
 <header>
-    <nav class="navbar fixed-top header">
-        <a class="navbar-brand">Nova Receita</a>
-        <form class="form-inline">
-            <div>Bem vindo, <a>Usuário</a></div>
-        </form>
+    <nav th:replace="data :: nav">
     </nav>
 </header>
 
-<form th:action="@{/receitas}" th:object="${receita}" method="post" class="container content">
+<form th:action="@{/receitas}" th:object="${receitaForm}" method="post" class="container content">
 
     <div th:if="${sucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
         <p class="m-0" th:text="${sucesso}"></p>
@@ -49,7 +45,6 @@
             </div>
             <span class="text-danger" th:if="${#fields.hasErrors('tempoPreparo')}" th:errors="*{tempoPreparo}"></span>
         </div>
-
 
         <div class="form-group col-sm-6">
             <label for="modoPreparo">Rendimento</label>
