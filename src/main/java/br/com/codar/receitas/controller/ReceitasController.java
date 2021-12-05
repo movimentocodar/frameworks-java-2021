@@ -40,7 +40,7 @@ public class ReceitasController {
         return "receitas/nova";
     }
 
-    @ResponseBody
+    @GetMapping("/lista")
     public List<ListaReceitaDto> listaReceita(){
 
         Ingrediente chocolate = new Ingrediente("Chocolate", 200, Medida.GRAMA);
@@ -64,8 +64,8 @@ public class ReceitasController {
 
         receitaRepository.save(brownie);
 
+        List<Receita> receitas = receitaRepository.findByRevisarFalse();
 
-        List<Receita> receitas = receitaRepository.findAll();
         return ListaReceitaDto.converter(receitas);
     }
 

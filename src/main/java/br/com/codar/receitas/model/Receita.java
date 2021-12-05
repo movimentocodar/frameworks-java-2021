@@ -1,7 +1,6 @@
 package br.com.codar.receitas.model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -56,10 +55,6 @@ public class Receita {
 
     public String getModoPreparo() {
         return modoPreparo;
-    }
-
-    public Boolean getRevisar() {
-        return revisar;
     }
 
     public List<Ingrediente> getIngredientes() {

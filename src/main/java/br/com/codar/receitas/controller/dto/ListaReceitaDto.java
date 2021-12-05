@@ -16,8 +16,6 @@ public class ListaReceitaDto {
     private Integer rendimento;
     private LocalDateTime dataPublicacao;
 
-    //Lista receitas
-
     public ListaReceitaDto(Receita receita){
         this.id = receita.getId();
         this.nome = receita.getNome();
