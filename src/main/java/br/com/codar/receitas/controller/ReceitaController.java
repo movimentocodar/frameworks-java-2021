@@ -46,7 +46,7 @@ public class ReceitaController {
         Receita receita = requisicaoNovaReceita.toReceita();
         receitaRepository.save(receita);
         attributes.addFlashAttribute("sucesso", "Receita salva com sucesso!");
-        return "redirect:/nova";
+        return "redirect:receitas/lista";
 	}
 	
 	@GetMapping("detalhe/{id}")

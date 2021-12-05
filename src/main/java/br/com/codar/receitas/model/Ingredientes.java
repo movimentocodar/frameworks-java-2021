@@ -30,6 +30,10 @@ public class Ingredientes {
 	@Enumerated(EnumType.STRING)
 	private Medida medida;
 	
+	public Ingredientes() {
+		
+	}
+	
 	public Ingredientes(String nome, int quantidade, Medida medida) {
 		setNome(nome);
 		setQuantidade(quantidade);
