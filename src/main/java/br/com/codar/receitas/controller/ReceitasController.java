@@ -8,21 +8,32 @@ import br.com.codar.receitas.model.Receita;
 import br.com.codar.receitas.repository.IngredienteRepository;
 import br.com.codar.receitas.repository.ReceitaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
+
+import org.springframework.context.annotation.Bean;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+
+import java.nio.charset.StandardCharsets;
+
 @Controller
-@RequestMapping("/receitas")
+@RequestMapping(value = "/receitas", produces = "application/json")
 public class ReceitasController {
 
     @Autowired
@@ -31,29 +42,44 @@ public class ReceitasController {
     @Autowired
     private IngredienteRepository ingredienteRepository;
 
-    @GetMapping("/nova")
+    @GetMapping(
+            value = "/nova",
+            produces="application/json"
+    )
     public String nova(Model model){
-        ReceitaForm receita = new ReceitaForm();
-        model.addAttribute("receita", receita);
+        ReceitaForm receitaForm = new ReceitaForm();
+        model.addAttribute("receitaForm", receitaForm);
         return "receitas/nova";
     }
 
     @GetMapping("/lista")
     public String listaReceita(Model model){
-        List<Receita> receitas = receitaRepository.findByRevisarFalse();
+        List<Receita> receitas = receitaRepository.findByRevisarFalseAndOrderByDateDesc();
 
         model.addAttribute("receitas", ListaReceitaDto.converter(receitas));
         return "receitas/lista";
     }
 
-    @PostMapping
-    @Transactional
-    public ResponseEntity<ListaReceitaDto> cadastrar(@RequestBody @Valid ReceitaForm receitaForm, BindingResult result, UriComponentsBuilder uriBuilder) {
+    @PostMapping(consumes="application/json")
+    public String cadastrar(@RequestBody @Valid ReceitaForm receitaForm, BindingResult result, UriComponentsBuilder uriBuilder, Model model) {
+
+        if(result.hasErrors()) {
+            model.addAttribute("sucesso", false);
+            return "receitas/nova";
+        }
+
         Receita receita = receitaForm.converter(ingredienteRepository);
         receitaRepository.save(receita);
 
-        URI uri = uriBuilder.path("/detalhe/{id}").buildAndExpand(receita.getId()).toUri();
-        return ResponseEntity.created(uri).body(new ListaReceitaDto(receita));
+      /*
+      ResponseEntity<ListaReceitaDto>
+      URI uri = uriBuilder.path("/detalhe/{id}").buildAndExpand(receita.getId()).toUri();
+        return ResponseEntity.created(uri).body(new ListaReceitaDto(receita));*/
+
+        model.addAttribute("sucesso", true);
+        ReceitaForm receitaFormNovo = new ReceitaForm();
+        model.addAttribute("receitaForm", receitaFormNovo);
+        return "receitas/nova";
     }
 
     @GetMapping("/detalhe/{id}")
@@ -70,5 +96,4 @@ public class ReceitasController {
     public String onError() {
         return "redirect:/lista";
     }*/
-
 }

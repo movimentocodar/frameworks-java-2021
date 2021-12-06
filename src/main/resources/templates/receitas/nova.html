@@ -22,7 +22,7 @@
 });
             object.rendimento = parseInt(object.rendimento)
             object.tempoPreparo = parseInt(object.tempoPreparo)
-            object._revisar = (!object._revisar == 'on')
+            object._revisar = object._revisar == 'on'
 
             fetch('/receitas',{
             method: 'POST',
@@ -43,109 +43,109 @@
     </nav>
 </header>
 
-<!-- <form th:action="@{/receitas}" th:object="${receita}" method="post" class="container content"> -->
-<form action="javascript:envia()" th:object="${receita}" method="post" class="container content">
+<form th:action="@{/receitas}" th:object="${receitaForm}" method="post" class="container content">
+<!-- <form action="javascript:envia()" th:object="${receitaForm}" method="post" class="container content">-->
 
-    <div th:if="${sucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
-        <p class="m-0" th:text="${sucesso}"></p>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+      <div th:if="${sucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
+          <p class="m-0" th:text="${sucesso}"></p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
 
-    <div class="form-group">
-        <label for="nome">Nome</label>
-        <input type="text" class="form-control" th:field="*{nome}" id="nome" placeholder="Nome da receita...">
-        <span class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-    </div>
+      <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="text" class="form-control" th:field="*{nome}" id="nome" placeholder="Nome da receita...">
+          <span class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+      </div>
 
-    <div class="form-group">
-        <label for="nome">Link da foto</label>
-        <input type="text" class="form-control" th:field="*{linkFoto}" id="linkFoto"
-               placeholder="Link da foto da receita...">
-    </div>
+      <div class="form-group">
+          <label for="nome">Link da foto</label>
+          <input type="text" class="form-control" th:field="*{linkFoto}" id="linkFoto"
+                 placeholder="Link da foto da receita...">
+      </div>
 
-    <div class="row">
-        <div class="form-group col-sm-6">
-            <label for="modoPreparo">Tempo de preparo</label>
-            <div class="input-group">
-                <input type="number" class="form-control" th:field="*{tempoPreparo}" id="tempoPreparo"
-                       placeholder="Tempo de preparo da receita..." aria-describedby="addon-tempo">
-                <div class="input-group-append">
-                    <span class="input-group-text" id="addon-tempo">minutos</span>
-                </div>
-            </div>
-            <span class="text-danger" th:if="${#fields.hasErrors('tempoPreparo')}" th:errors="*{tempoPreparo}"></span>
-        </div>
+      <div class="row">
+          <div class="form-group col-sm-6">
+              <label for="modoPreparo">Tempo de preparo</label>
+              <div class="input-group">
+                  <input type="number" class="form-control" th:field="*{tempoPreparo}" id="tempoPreparo"
+                         placeholder="Tempo de preparo da receita..." aria-describedby="addon-tempo">
+                  <div class="input-group-append">
+                      <span class="input-group-text" id="addon-tempo">minutos</span>
+                  </div>
+              </div>
+              <span class="text-danger" th:if="${#fields.hasErrors('tempoPreparo')}" th:errors="*{tempoPreparo}"></span>
+          </div>
 
 
-        <div class="form-group col-sm-6">
-            <label for="modoPreparo">Rendimento</label>
-            <div class="input-group">
-                <input type="number" class="form-control" th:field="*{rendimento}" id="rendimento"
-                       placeholder="Rendimento da receita..." aria-describedby="addon-rendimento">
-                <div class="input-group-append">
-                    <span class="input-group-text" id="addon-rendiment">porções</span>
-                </div>
-            </div>
+          <div class="form-group col-sm-6">
+              <label for="modoPreparo">Rendimento</label>
+              <div class="input-group">
+                  <input type="number" class="form-control" th:field="*{rendimento}" id="rendimento"
+                         placeholder="Rendimento da receita..." aria-describedby="addon-rendimento">
+                  <div class="input-group-append">
+                      <span class="input-group-text" id="addon-rendiment">porções</span>
+                  </div>
+              </div>
 
-            <span class="text-danger" th:if="${#fields.hasErrors('rendimento')}" th:errors="*{rendimento}"></span>
-        </div>
-    </div>
+              <span class="text-danger" th:if="${#fields.hasErrors('rendimento')}" th:errors="*{rendimento}"></span>
+          </div>
+      </div>
 
-    <h5>
-        Ingredientes
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngrediente">
-            Adicionar
-        </button>
-    </h5>
-    <div>
-        <table class="table">
-            <thead>
-            <tr><th>Nome</th><th>Quantidade</th><th>Medida</th><th></th></tr>
-            </thead>
-            <tbody id="tabelaIngredientes">
-            <tr th:each="ingrediente, stat : *{ingredientes}">
-                <input type="hidden" th:name="|ingredientes[${stat.index}].nome|" th:value="${ingrediente.nome}"/>
-                <input type="hidden" th:name="|ingredientes[${stat.index}].quantidade|" th:value="${ingrediente.quantidade}"/>
-                <input type="hidden" th:name="|ingredientes[${stat.index}].medida|" th:value="${ingrediente.medida}"/>
-                <td th:text="${ingrediente.nome}"></td>
-                <td th:text="${ingrediente.quantidade}"></td>
-                <td th:text="${ingrediente.medida}"></td>
-                <td>
-                    <button type="button" class="btn btn-sm btn-danger" onclick="removerIngrediente(this)">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <span class="text-danger" th:if="${#fields.hasErrors('ingredientes*')}" th:errors="*{ingredientes*}"></span>
-    </div>
+      <h5>
+          Ingredientes
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngrediente">
+              Adicionar
+          </button>
+      </h5>
+      <div>
+          <table class="table">
+              <thead>
+              <tr><th>Nome</th><th>Quantidade</th><th>Medida</th><th></th></tr>
+              </thead>
+              <tbody id="tabelaIngredientes">
+              <tr th:each="ingrediente, stat : *{ingredientes}">
+                  <input type="hidden" th:name="|ingredientes[${stat.index}].nome|" th:value="${ingrediente.nome}"/>
+                  <input type="hidden" th:name="|ingredientes[${stat.index}].quantidade|" th:value="${ingrediente.quantidade}"/>
+                  <input type="hidden" th:name="|ingredientes[${stat.index}].medida|" th:value="${ingrediente.medida}"/>
+                  <td th:text="${ingrediente.nome}"></td>
+                  <td th:text="${ingrediente.quantidade}"></td>
+                  <td th:text="${ingrediente.medida}"></td>
+                  <td>
+                      <button type="button" class="btn btn-sm btn-danger" onclick="removerIngrediente(this)">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </td>
+              </tr>
+              </tbody>
+          </table>
+          <span class="text-danger" th:if="${#fields.hasErrors('ingredientes*')}" th:errors="*{ingredientes*}"></span>
+      </div>
 
-    <hr>
+      <hr>
 
-    <div class="form-group">
-        <label for="modoPreparo">Modo de preparo</label>
-        <textarea class="form-control" id="modoPreparo" th:field="*{modoPreparo}" rows="5"
-                  placeholder="Modo de preparo da receita..."></textarea>
-        <span class="text-danger" th:if="${#fields.hasErrors('modoPreparo')}" th:errors="*{modoPreparo}"></span>
-    </div>
+      <div class="form-group">
+          <label for="modoPreparo">Modo de preparo</label>
+          <textarea class="form-control" id="modoPreparo" th:field="*{modoPreparo}" rows="5"
+                    placeholder="Modo de preparo da receita..."></textarea>
+          <span class="text-danger" th:if="${#fields.hasErrors('modoPreparo')}" th:errors="*{modoPreparo}"></span>
+      </div>
 
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" th:field="*{revisar}" id="revisar">
-        <label class="form-check-label" for="revisar">
-            Deve ser revisado
-        </label>
-    </div>
+      <div class="form-check">
+          <input class="form-check-input" type="checkbox" th:field="*{revisar}" id="revisar">
+          <label class="form-check-label" for="revisar">
+              Deve ser revisado
+          </label>
+      </div>
 
-    <div class="row p-3">
-        <button class="btn btn-primary" type="submit">Salvar receita</button>
-    </div>
+      <div class="row p-3">
+          <button class="btn btn-primary" type="submit">Salvar receita</button>
+      </div>
 
-</form>
+  </form>
 
-<!-- Modal Ingrediente -->
+  <!-- Modal Ingrediente -->
 <div class="modal fade" id="modalIngrediente" tabindex="-1" role="dialog" aria-labelledby="modalIngredienteLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
