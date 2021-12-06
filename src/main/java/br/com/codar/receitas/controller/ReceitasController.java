@@ -2,6 +2,7 @@ package br.com.codar.receitas.controller;
 
 import br.com.codar.receitas.controller.dto.DetalheReceitaDto;
 import br.com.codar.receitas.controller.dto.ListaReceitaDto;
+import br.com.codar.receitas.controller.form.IngredienteForm;
 import br.com.codar.receitas.controller.form.ReceitaForm;
 import br.com.codar.receitas.model.Receita;
 
@@ -32,8 +33,7 @@ public class ReceitasController {
             produces="application/json"
     )
     public String nova(Model model){
-        ReceitaForm receitaForm = new ReceitaForm();
-        model.addAttribute("receitaForm", receitaForm);
+        model.addAttribute("receitaForm", new ReceitaForm());
         return "receitas/nova";
     }
 
@@ -46,9 +46,9 @@ public class ReceitasController {
     }
 
     @PostMapping
-    public String cadastrar(@Valid ReceitaForm receitaForm, BindingResult result, Model model) {
+    public String cadastrar(@Valid ReceitaForm receitaForm, BindingResult resultReceitaForm, Model model) {
 
-        if(result.hasErrors()) {
+        if(resultReceitaForm.hasErrors()) {
             model.addAttribute("sucesso", false);
             return "receitas/nova";
         }

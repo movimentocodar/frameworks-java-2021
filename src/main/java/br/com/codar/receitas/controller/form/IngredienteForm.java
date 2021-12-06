@@ -24,6 +24,18 @@ public class IngredienteForm {
         this.medida = medida;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public Medida getMedida() {
+        return medida;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }

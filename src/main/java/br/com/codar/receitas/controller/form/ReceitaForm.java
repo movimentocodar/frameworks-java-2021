@@ -5,6 +5,7 @@ import br.com.codar.receitas.model.Receita;
 import br.com.codar.receitas.repository.IngredienteRepository;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.*;
@@ -23,7 +24,7 @@ public class ReceitaForm {
     @NotBlank(message = "{modoPreparo.NotBlank}") @Length(min = 20, message = "{modoPreparo.Length}")
     private String modoPreparo;
     private Boolean revisar;
-    @NotNull(message = "{listaIngrediente.NotNull}")
+    @NotNull(message = "{listaIngrediente.NotNull}") @Valid
     private List<IngredienteForm> ingredientes;
 
     public ReceitaForm() {
