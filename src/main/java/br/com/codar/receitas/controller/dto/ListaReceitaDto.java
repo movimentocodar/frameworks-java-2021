@@ -2,7 +2,6 @@ package br.com.codar.receitas.controller.dto;
 
 import br.com.codar.receitas.model.Receita;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +23,6 @@ public class ListaReceitaDto {
         this.rendimento = receita.getRendimento();
         this.dataPublicacao = receita.getDataPublicacao();
     }
-
 
     public Long getId() {
         return id;

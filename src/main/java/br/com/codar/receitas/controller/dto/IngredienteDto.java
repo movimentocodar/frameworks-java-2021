@@ -14,5 +14,27 @@ public class IngredienteDto {
         this.medida = ingrediente.getMedida();
     }
 
+    public String getNome() {
+        return nome;
+    }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public Medida getMedida() {
+        return medida;
+    }
+
+    public void setMedida(Medida medida) {
+        this.medida = medida;
+    }
 }

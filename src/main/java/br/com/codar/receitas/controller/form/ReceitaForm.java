@@ -19,9 +19,9 @@ public class ReceitaForm {
     @NotNull @NotEmpty
     private String nome;
     private String linkFoto;
-    @NotNull @NotEmpty @Min(10) @Max(360)
+   // @NotNull @NotEmpty @Min(10) @Max(360)
     private Integer tempoPreparo;
-    @NotNull @NotEmpty @Min(1) @Max(50)
+    //@NotNull @NotEmpty @Min(1) @Max(50)
     private Integer rendimento;
     @NotNull @NotEmpty @Length(min = 20)
     private String modoPreparo;
@@ -29,10 +29,70 @@ public class ReceitaForm {
     @NotNull @NotEmpty
     private List<IngredienteForm> ingredientes;
 
+    public ReceitaForm() {
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getLinkFoto() {
+        return linkFoto;
+    }
+
+    public void setLinkFoto(String linkFoto) {
+        this.linkFoto = linkFoto;
+    }
+
+    public Integer getTempoPreparo() {
+        return tempoPreparo;
+    }
+
+    public void setTempoPreparo(Integer tempoPreparo) {
+        this.tempoPreparo = tempoPreparo;
+    }
+
+    public Integer getRendimento() {
+        return rendimento;
+    }
+
+    public void setRendimento(Integer rendimento) {
+        this.rendimento = rendimento;
+    }
+
+    public String getModoPreparo() {
+        return modoPreparo;
+    }
+
+    public void setModoPreparo(String modoPreparo) {
+        this.modoPreparo = modoPreparo;
+    }
+
+    public Boolean getRevisar() {
+        return revisar;
+    }
+
+    public void setRevisar(Boolean revisar) {
+        this.revisar = revisar;
+    }
+
+    public List<IngredienteForm> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(List<IngredienteForm> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
     public Receita converter(IngredienteRepository ingredienteRepository) {
         List<Ingrediente> listaIngredientes = new ArrayList<>();
         this.ingredientes.forEach(i -> listaIngredientes.add(i.converter()));
         listaIngredientes.forEach(i -> ingredienteRepository.save(i));
         return new Receita(this.nome, this.linkFoto, this.tempoPreparo, this.rendimento, this.modoPreparo, this.revisar, listaIngredientes);
     }
+
 }

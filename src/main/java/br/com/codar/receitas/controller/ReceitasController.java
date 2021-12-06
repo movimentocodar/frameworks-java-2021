@@ -3,8 +3,6 @@ package br.com.codar.receitas.controller;
 import br.com.codar.receitas.controller.dto.DetalheReceitaDto;
 import br.com.codar.receitas.controller.dto.ListaReceitaDto;
 import br.com.codar.receitas.controller.form.ReceitaForm;
-import br.com.codar.receitas.model.Ingrediente;
-import br.com.codar.receitas.model.Medida;
 import br.com.codar.receitas.model.Receita;
 
 import br.com.codar.receitas.repository.IngredienteRepository;
@@ -41,32 +39,11 @@ public class ReceitasController {
     }
 
     @GetMapping("/lista")
-    public List<ListaReceitaDto> listaReceita(){
-
-        Ingrediente chocolate = new Ingrediente("Chocolate", 200, Medida.GRAMA);
-        Ingrediente farinha = new Ingrediente("Farinha", 500, Medida.GRAMA);
-        Ingrediente ovo = new Ingrediente("Ovos", 2, Medida.UNIDADE);
-        Ingrediente leite = new Ingrediente("Leite", 100, Medida.MILILITRO);
-        Ingrediente acucar = new Ingrediente("Açucar", 100, Medida.GRAMA);
-
-        ingredienteRepository.save(chocolate);
-        ingredienteRepository.save(farinha);
-        ingredienteRepository.save(ovo);
-        ingredienteRepository.save(leite);
-        ingredienteRepository.save(acucar);
-
-
-        Receita brownie = new Receita("Brownie de Chocolate",
-                "https://img.estadao.com.br/fotos/crop/1200x1200/resources/jpg/7/0/1519841184607.jpg",
-                40, 8,
-                "Em uma tigela coloque os ovos e o açúcar e bata com a ajuda de fouet ou garfo, em seguida adicione chocolate e depois adicione a farinha até que fique homogênea; Despeje a massa em uma forma untada e asse em forno pré-aquecido a 180ºC por 35 minutos.",
-                false, ingredienteRepository.findAll());
-
-        receitaRepository.save(brownie);
-
+    public String listaReceita(Model model){
         List<Receita> receitas = receitaRepository.findByRevisarFalse();
 
-        return ListaReceitaDto.converter(receitas);
+        model.addAttribute("receitas", ListaReceitaDto.converter(receitas));
+        return "receitas/lista";
     }
 
     @PostMapping
@@ -80,14 +57,18 @@ public class ReceitasController {
     }
 
     @GetMapping("/detalhe/{id}")
-    public ResponseEntity<DetalheReceitaDto> detalhar(@PathVariable Long id) {
+    public String detalhar(@PathVariable Long id, Model model) {
         Optional<Receita> receita = receitaRepository.findById(id);
         if (receita.isPresent()) {
-            return ResponseEntity.ok(new DetalheReceitaDto(receita.get()));
+           model.addAttribute("receita", new DetalheReceitaDto(receita.get()));
+            return "receitas/detalhe";
         }
-
-        return ResponseEntity.notFound().build();
+        return "receitas/lista";
     }
 
+  /*  @ExceptionHandler(IllegalArgumentException.class)
+    public String onError() {
+        return "redirect:/lista";
+    }*/
 
 }
