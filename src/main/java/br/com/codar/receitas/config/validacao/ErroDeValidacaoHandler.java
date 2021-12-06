@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @RestControllerAdvice
 public class ErroDeValidacaoHandler {
-
+/*
     @Autowired
     private MessageSource messageSource;
 
@@ -26,11 +27,11 @@ public class ErroDeValidacaoHandler {
 
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
         fieldErrors.forEach(e -> {
-            String mensagem = messageSource.getMessage(e, LocaleContextHolder.getLocale());
+            String mensagem = messageSource.getMessage(e,new Locale("pt", "BR"));
             ErroDeFormularioDto erro = new ErroDeFormularioDto(e.getField(), mensagem);
             dto.add(erro);
         });
 
         return dto;
-    }
+    }*/
 }

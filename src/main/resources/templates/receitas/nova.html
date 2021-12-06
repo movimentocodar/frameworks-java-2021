@@ -43,7 +43,7 @@
     </nav>
 </header>
 
-<form th:action="@{/receitas}" th:object="${receitaForm}" method="post" class="container content">
+<form th:action="@{/receitas/nova/}" th:object="${receitaForm}" method="post" class="container content">
 <!-- <form action="javascript:envia()" th:object="${receitaForm}" method="post" class="container content">-->
 
       <div th:if="${sucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
@@ -105,7 +105,7 @@
               <tr><th>Nome</th><th>Quantidade</th><th>Medida</th><th></th></tr>
               </thead>
               <tbody id="tabelaIngredientes">
-              <tr th:each="ingrediente, stat : *{ingredientes}">
+              <tr th:each="IngredienteForm, stat : *{ingredientes}">
                   <input type="hidden" th:name="|ingredientes[${stat.index}].nome|" th:value="${ingrediente.nome}"/>
                   <input type="hidden" th:name="|ingredientes[${stat.index}].quantidade|" th:value="${ingrediente.quantidade}"/>
                   <input type="hidden" th:name="|ingredientes[${stat.index}].medida|" th:value="${ingrediente.medida}"/>

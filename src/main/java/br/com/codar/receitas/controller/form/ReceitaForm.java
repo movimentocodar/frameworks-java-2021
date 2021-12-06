@@ -15,17 +15,17 @@ import java.util.stream.Collectors;
 
 public class ReceitaForm {
 
-    @NotNull @NotEmpty
+    @NotNull @NotBlank
     private String nome;
     private String linkFoto;
-   // @NotNull @NotEmpty @Min(10) @Max(360)
+    @NotNull @Min(10) @Max(360)
     private Integer tempoPreparo;
-    //@NotNull @NotEmpty @Min(1) @Max(50)
+    @NotNull @Min(1) @Max(50)
     private Integer rendimento;
-    @NotNull @NotEmpty @Length(min = 20)
+    @NotNull @NotBlank @Length(min = 20)
     private String modoPreparo;
     private Boolean revisar;
-    @NotNull @NotEmpty
+    @NotNull
     private List<IngredienteForm> ingredientes;
 
     public ReceitaForm() {
