@@ -3,7 +3,6 @@ package br.com.codar.receitas.controller;
 import br.com.codar.receitas.controller.dto.DetalheReceitaDto;
 import br.com.codar.receitas.controller.dto.ListaReceitaDto;
 import br.com.codar.receitas.controller.form.ReceitaForm;
-import br.com.codar.receitas.model.Ingrediente;
 import br.com.codar.receitas.model.Receita;
 
 import br.com.codar.receitas.repository.IngredienteRepository;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -47,8 +45,8 @@ public class ReceitasController {
         return "receitas/lista";
     }
 
-    @PostMapping("nova")
-    public String cadastrar(@Valid ReceitaForm receitaForm, BindingResult result, UriComponentsBuilder uriBuilder, Model model) {
+    @PostMapping
+    public String cadastrar(@Valid ReceitaForm receitaForm, BindingResult result, Model model) {
 
         if(result.hasErrors()) {
             model.addAttribute("sucesso", false);

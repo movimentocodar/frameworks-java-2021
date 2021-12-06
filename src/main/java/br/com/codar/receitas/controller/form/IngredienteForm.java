@@ -8,11 +8,11 @@ import javax.persistence.Enumerated;
 import javax.validation.constraints.*;
 
 public class IngredienteForm {
-    @NotNull @NotBlank(message = "{nome.NotBlank}")
+    @NotBlank(message = "{nomeIngrediente.NotBlank}")
     private String nome;
-    @NotNull @Min(1) @Max(1000)
+    @NotNull(message = "{quantidadeIngrediente.NotNull}") @Min(value = 1, message = "{quantidadeIngrediente.MinMax}") @Max(value = 1000, message = "{quantidadeIngrediente.MinMax}")
     private Integer quantidade;
-    @NotNull @NotBlank @Enumerated(EnumType.STRING)
+    @NotNull(message = "{medidaIngrediente.NotNull}") @Enumerated(EnumType.STRING)
     private Medida medida;
 
     public IngredienteForm() {

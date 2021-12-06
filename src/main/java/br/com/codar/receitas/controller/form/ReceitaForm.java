@@ -1,6 +1,5 @@
 package br.com.codar.receitas.controller.form;
 
-import br.com.codar.receitas.controller.dto.IngredienteDto;
 import br.com.codar.receitas.model.Ingrediente;
 import br.com.codar.receitas.model.Receita;
 import br.com.codar.receitas.repository.IngredienteRepository;
@@ -11,21 +10,20 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ReceitaForm {
 
-    @NotNull @NotBlank
+    @NotBlank(message = "{nomeReceita.NotBlank}")
     private String nome;
     private String linkFoto;
-    @NotNull @Min(10) @Max(360)
+    @NotNull(message = "{tempoPreparo.NotNull}") @Min(value = 10, message = "{tempoPreparo.MinMax}") @Max(value = 360, message = "{tempoPreparo.MinMax}")
     private Integer tempoPreparo;
-    @NotNull @Min(1) @Max(50)
+    @NotNull(message = "{rendimento.NotNull}") @Min(value = 1, message = "{rendimento.MinMax}") @Max(value = 50, message = "{rendimento.MinMax}")
     private Integer rendimento;
-    @NotNull @NotBlank @Length(min = 20)
+    @NotBlank(message = "{modoPreparo.NotBlank}") @Length(min = 20, message = "{modoPreparo.Length}")
     private String modoPreparo;
     private Boolean revisar;
-    @NotNull
+    @NotNull(message = "{listaIngrediente.NotNull}")
     private List<IngredienteForm> ingredientes;
 
     public ReceitaForm() {

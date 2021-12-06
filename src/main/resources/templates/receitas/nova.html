@@ -5,33 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
-    <script language="JavaScript">
-        function envia(){
-        var object = {};
-(new FormData(document.getElementsByTagName('form')[1])).forEach(function(value, key){
-    let obj = object
-    if(key.includes('ingredientes')){
-       key = key.replace('ingredientes[0].','')
-       if(!object.ingredientes){
-            object.ingredientes = [{}]
-       }
-       obj = object.ingredientes[0]
-    }
-
-    obj[key.replace("\r\n",'')] = value;
-});
-            object.rendimento = parseInt(object.rendimento)
-            object.tempoPreparo = parseInt(object.tempoPreparo)
-            object._revisar = object._revisar == 'on'
-
-            fetch('/receitas',{
-            method: 'POST',
-            headers : { "content-type" : 'application/json'},
-            body : JSON.stringify(object)
-            }).then(a=>a.text()).then(console.log).catch(console.log)
-        }
-
-    </script>
 </head>
 <body>
 <header>
@@ -43,9 +16,7 @@
     </nav>
 </header>
 
-<form th:action="@{/receitas/nova/}" th:object="${receitaForm}" method="post" class="container content">
-<!-- <form action="javascript:envia()" th:object="${receitaForm}" method="post" class="container content">-->
-
+<form th:action="@{/receitas}" th:object="${receitaForm}" method="post" class="container content">
       <div th:if="${sucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
           <p class="m-0" th:text="${sucesso}"></p>
           <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
@@ -105,10 +76,10 @@
               <tr><th>Nome</th><th>Quantidade</th><th>Medida</th><th></th></tr>
               </thead>
               <tbody id="tabelaIngredientes">
-              <tr th:each="IngredienteForm, stat : *{ingredientes}">
-                  <input type="hidden" th:name="|ingredientes[${stat.index}].nome|" th:value="${ingrediente.nome}"/>
-                  <input type="hidden" th:name="|ingredientes[${stat.index}].quantidade|" th:value="${ingrediente.quantidade}"/>
-                  <input type="hidden" th:name="|ingredientes[${stat.index}].medida|" th:value="${ingrediente.medida}"/>
+              <tr th:each="ingrediente, stat : *{ingredientes}">
+                  <input type="hidden" th:field="${ingrediente.nome}" th:name="|ingredientes[${stat.index}].nome|" th:value="${ingrediente.nome}"/>
+                  <input type="hidden" th:field="${ingrediente.quantidade}" th:name="|ingredientes[${stat.index}].quantidade|" th:value="${ingrediente.quantidade}"/>
+                  <input type="hidden" th:field="${ingrediente.medida}" th:name="|ingredientes[${stat.index}].medida|" th:value="${ingrediente.medida}"/>
                   <td th:text="${ingrediente.nome}"></td>
                   <td th:text="${ingrediente.quantidade}"></td>
                   <td th:text="${ingrediente.medida}"></td>
