@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+    <title>Lista de Receita</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+    <nav class="navbar fixed-top header">
+        <a class="navbar-brand">Receita - <span th:text="${receita.nome}"></span></a>
+    </nav>
+</header>
+
+<div class="container content">
+    <h2 th:text="${receita.nome}"></h2>
+    <div class="row">
+        <div class="col-md-12">
+            <img th:src="${receita.linkFoto}" class="card-img img-fluid imagem-receita" th:alt="${receita.nome}">
+        </div>
+    </div>
+    <hr>
+    <p><strong>Tempo de preparo:</strong> <span th:text="${receita.tempoPreparo}"></span> minutos.</p>
+    <p><strong>Rendimento:</strong> <span th:text="${receita.rendimento}"></span> porções.</p>
+    <label><strong>Ingredientes</strong></label>
+    <ul class="list-group">
+        <li th:each="ingrediente : ${receita.ingredientes}" class="list-group-item">
+            <span th:text="${ingrediente.nome}"></span>
+            -
+            <span th:text="${ingrediente.quantidade}"></span>
+            <span th:text="${ingrediente.medida}"></span>
+        </li>
+    </ul>
+    <label><strong>Forma de preparo</strong></label>
+    <p th:text="${receita.modoPreparo}"></p>
+
+    <hr>
+    <p class="text-muted">
+        Criado em <span th:text="${#temporals.format(receita.dataPublicacao, 'dd/MM/yyyy HH:mm')}"></span>
+    </p>
+
+</div>
+</body>
+</html>
