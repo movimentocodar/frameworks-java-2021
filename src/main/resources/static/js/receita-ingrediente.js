@@ -29,8 +29,8 @@ function removerIngrediente(el) {
 }
 
 $("#adicionar").on("click", function (e) {
-    var form = $("#ingredienteForm")[0];
-    var isValid = form.checkValidity();
+    const form = $("#ingredienteForm")[0];
+    const isValid = form.checkValidity();
     if (!isValid) {
         e.preventDefault();
         e.stopPropagation();
