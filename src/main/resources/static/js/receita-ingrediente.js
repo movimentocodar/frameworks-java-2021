@@ -27,3 +27,16 @@ function adicionarIngrediente() {
 function removerIngrediente(el) {
     $(el).closest("tr").remove();
 }
+
+$("#adicionar").on("click", function (event) {
+    const formIngrediente = $('#ingredienteForm');
+
+    if (!formIngrediente.get(0).checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+    }
+
+    formIngrediente.get(0).classList.add('was-validated')
+    adicionarIngrediente(formIngrediente);
+
+});
