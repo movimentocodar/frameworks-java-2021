@@ -27,3 +27,15 @@ function adicionarIngrediente() {
 function removerIngrediente(el) {
     $(el).closest("tr").remove();
 }
+
+$("#adicionar").on("click", function (e) {
+    const form = $("#ingredienteForm")[0];
+    const isValid = form.checkValidity();
+    if (!isValid) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    adicionarIngrediente(form);
+    form.classList.add('was-validated');
+    return false; // For testing only to stay on this page
+});
