@@ -28,15 +28,14 @@ function removerIngrediente(el) {
     $(el).closest("tr").remove();
 }
 
-$("#adicionar").on("click", function (event) {
-    const formIngrediente = $('#ingredienteForm');
-
-    if (!formIngrediente.get(0).checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
+$("#adicionar").on("click", function (e) {
+    var form = $("#ingredienteForm")[0];
+    var isValid = form.checkValidity();
+    if (!isValid) {
+        e.preventDefault();
+        e.stopPropagation();
     }
-
-    formIngrediente.get(0).classList.add('was-validated')
-    adicionarIngrediente(formIngrediente);
-
+    adicionarIngrediente(form);
+    form.classList.add('was-validated');
+    return false; // For testing only to stay on this page
 });
