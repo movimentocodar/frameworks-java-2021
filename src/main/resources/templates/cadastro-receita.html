@@ -10,13 +10,14 @@
 <header>
     <nav class="navbar fixed-top header">
         <a class="navbar-brand">Nova Receita</a>
+        <a th:href="@{/receitas/lista/}">Lista de Receita</a>
         <form class="form-inline">
             <div>Bem vindo, <a>Usuário</a></div>
         </form>
     </nav>
 </header>
 
-<form th:action="@{/receitas}" th:object="${receita}" method="post" class="container content">
+<form th:action="@{/receitas}" th:object="${receitaForm}" id="receitaForm" method="post" class="container content">
 
     <div th:if="${sucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
         <p class="m-0" th:text="${sucesso}"></p>
@@ -74,7 +75,12 @@
     <div>
         <table class="table">
             <thead>
-            <tr><th>Nome</th><th>Quantidade</th><th>Medida</th><th></th></tr>
+            <tr>
+                <th>Nome</th>
+                <th>Quantidade</th>
+                <th>Medida</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody id="tabelaIngredientes">
             <tr th:each="ingrediente, stat : *{ingredientes}">
@@ -117,6 +123,7 @@
 
 </form>
 
+
 <!-- Modal Ingrediente -->
 <div class="modal fade" id="modalIngrediente" tabindex="-1" role="dialog" aria-labelledby="modalIngredienteLabel"
      aria-hidden="true">
@@ -129,29 +136,32 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="ingredienteForm">
+                <form id="ingredienteForm" th:action="@{/receitas}" th:object="${ingredienteFormForm}" method="post">
                     <div class="form-group">
                         <label for="nome">Nome</label>
-                        <input type="text" class="form-control" id="ingredientesNome" placeholder="Nome do ingrediente...">
+                        <input type="text" class="form-control" id="ingredientesNome" placeholder="Nome do ingrediente..."  pattern=".{5,20}" title="de 5 a 20 caracteres" required>
+                        <div class="invalid-feedback">Informe o nome do ingrediente de 5 a 20 caracteres</div>
                     </div>
                     <div class="form-group">
                         <label for="nome">Quantidade</label>
-                        <input type="number" class="form-control" id="ingredientesQuantidade" placeholder="Quantidade do ingrediente...">
+                        <input type="number" class="form-control" id="ingredientesQuantidade" placeholder="Quantidade do ingrediente..." min="1" max="1000" title="O prenchimento do campo deve esta no intervalo de 1 a 1000" required>
+                        <div class="invalid-feedback">A quantidade deve ser informada entre 1 a 1000</div>
                     </div>
                     <div class="form-group">
                         <label for="nome">Tipo de medida</label>
-                        <select class="custom-select" id="ingredientesMedida">
-                            <option selected>Selecione um tipo de medida...</option>
+                        <select class="custom-select" id="ingredientesMedida" required>
+                            <option value>Selecione um tipo de medida...</option>
                             <option value="GRAMA">Grama</option>
                             <option value="MILILITRO">Mililitro</option>
                             <option value="UNIDADE">Unidade</option>
                         </select>
+                        <div class="invalid-feedback">Selecione uma medida</div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="adicionarIngrediente()">Adicionar</button>
+                <button type="button" class="btn btn-primary" id="adicionar">Adicionar</button>
             </div>
         </div>
     </div>
